@@ -1,0 +1,199 @@
+[[apiman-use-case]]
+== APIMAN USE CASE
+This section outlines how to create new users, for API service *Provider* and *Consumer* roles. It demonstrates how to configure basic authentication Policies, a username, and password, to get access to an API.
+
+Some of the main concepts of Apiman, used in this demonstration, are Policies, Organization, Plans, and Applications:
+
+- You can apply *Policies* to applications, plans, and services. This ensures the governance of the services. You can apply Policies to API requests at runtime, by the API Gateway.
+
+- An *Organization* is a Role based container, for all entities, such as policies plans and APIs.
+
+- A *Plan* allows for multiple levels of access to a service. By applying multiple policies to the plan.
+
+- Client *Applications* consume APIs. Users can create Contracts to set up communication between the application and service.
+
+.Overview of the API Managers and API Gateways function
+[%header,cols=2*]
+|===
+|API Manager
+|API Gateway
+
+|Configures Policies for Aplications, Plans and Services
+|The API Gateway  enforces configured Polices at runtime
+
+|Provider and Consumer roles can manage and configure APIs. through a UI
+|Security, Limiting, and Modification policies are applied
+|===
+
+.Outline of the Provider and Consumer use case for this demonstration
+[%header,cols=2*]
+|===
+|Provider Role
+|Consumer Role
+
+|Creates the organization *ABC APIs*
+|Creates the organization *AJAX API Consumer*
+
+|Creates a *Gold* plan
+|Create a client application *eat-echo*
+
+|Applies a *rate-limiting policy*
+|Consumes the *echo* API
+
+|Creates the API called *echo*
+|Apply a contract
+
+|Applies the APIs endpoint
+|Register the application with the API Gateway
+
+|Adds an authentication policy
+|Selects which plan to apply
+
+|Publish the API
+|Create a client application *eat-echo* to consume API services, Governed by a Contract.
+
+|===
+
+<<<
+[[apiman-use-case-accounts]]
+=== CREATE PROVIDER AND CONSUMER USER PROFILES
+// === Create Provider and Consumer User Profiles
+Create Provider and Consumer user accounts in the API Manager UI: link:http://localhost:8080/apimanui/[http://localhost:8080/apimanui/]
+
+- Select *New user/Register*, to register, the new users:
+
+.Provider account
+image::01.create-provider.png[Alt text, 500, 1000]
+
+.Consumer account
+image::02.create-consumer.png[Alt text, 500, 1000]
+
+<<<
+[[apiman-use-case-provider]]
+=== CONFIGURATION FOR THE PROVIDER
+// === Configuration for the Provider
+==== Configure the Provider's Organization, Plan and Policy
+
+- Login to the Provider account. Select *Create a New Organization*.
+
+.Create the Organization, for the API Provider.
+image::create-organization.png[No text, 400, 400]
+
+// .Create a new plan
+// image::04.create-new-plan2.png[Alt text, 500, 1000]
+- Select *Plans* from the menu. Click *New Plan* and enter plan details.
+
+.Create a gold plan
+image::05.create-gold-plan2.png[Alt text, 500, 1000]
+
+<<<
+- Select *Policies* from the menu. Click *Add Policy* and add the policy configuration.
+
+.Create a gold plan policy
+image::06.add-policy-to-gold-plan2.png[Alt text, 600, 1300]
+
+- Click *Lock Plan* in the header
+
+.Lock the plan
+image::07.lock-the-policy.png[Alt text, 600, 1200]
+
+NOTE: Create multiple plans the same way as required.
+
+<<<
+[[apiman-use-case-api]]
+==== Create a new API
+
+- Select *APIs* from the menu. Click *New API* to add the API configuration.
+
+.Create a new API
+image::10.create-the-api-2.png[Alt text, 500, 1000]
+
+- Select *Implementation* from the menu. Add details for the back-end API. Click *Save*.
+
+.Create the APIs Endpoint
+image::11.create-the-api-endpoint.png[Alt text, 600, 1200]
+
+<<<
+- Select *Plans* from the menu. Choose the Plan required. Click *Save*.
+
+.Choose a Plan
+image::12.api-plans.png[Alt text, 600, 1200]
+
+- Select *Policies* from the menu. Choose a *Policy Type*. Add a descriptive *Realm* name. Add an *Identity. Source* and create a new User.
+
+.Add an authentication policy
+image::13.api-policy.png[Alt text, 600, 1200]
+
+<<<
+- Click *Publish*. At the top of the page, to publish the API.
+
+.Publish the API
+image::14.echo-aip-policy-published.png[Alt text, 800, 1400]
+
+[[apiman-use-case-consumer]]
+=== CONFIGURATION FOR THE CONSUMER
+
+- Login to the Consumer account. Select *Create a New Organization*.
+
+.Create an API consumer organization
+image::15.create-client-organisation.png[Alt text, 400, 400]
+
+- Select *Client App* from the menu. Click *New Client App*.
+
+.Create a client application
+image::17.ceate-client-app.png[Alt text, 400, 4500]
+
+- Select *Search for APIs to consume*. Enter the name of the API. Click *Search*.
+
+.Search for APIs to consume
+image::18.search-for-apis-to-consume.png[Alt text, 600, 1200]
+
+
+.Search for echo
+image::19.search-for-echo.png[Alt text, 600, 1200]
+
+- Select *Contracts* from the menu. Click *Create Contract* to add the Client contract to the API.
+
+.Client application details
+image::20.client-app-details.png[Alt text, 800, 1200]
+
+<<<
+- Select *Policies* from the menu. Choose a *Policy Type*.
+
+.Create a new contract
+image::21.create-the-contract.png[Alt text, 400, 200]
+
+<<<
+[[apiman-use-case-gateway]]
+==== Register the application with the API Gateway
+
+- Select *Contracts* from the menu. Click *Register* the application.
+
+.Register the client application
+image::23.registered-client-app.png[Alt text, 1000, 900]
+
+- Select *APIs* from the menu. Click on the *Information* icon. To display the API key and endpoint.
+
+.Client applications API
+image::24.api-key-and-endpoint.png[Alt text, 900, 900]
+
+.API key and endpoint
+image::25.api-key-and-endpoint2.png[Alt text, 900, 900]
+
+[[apiman-use-case-test]]
+==== Test the rate limiting policy
+
+The *rate limiting policy* is configured to provide authentication and to limit the client application to ten requests per day.
+
+- Copy the displayed endpoint into a browser to test authentication and login.
+
+----
+https://localhost:8443/apiman-gateway/ABCAPIs/echo/6.0?apikey=0eeba35e-b1f8-4265-ab47-ed440bac83bf
+----
+
+.Authentication show this Policy works
+image::26.test-user.png[Alt text, 600, 800]
+
+
+== REFERENCE
+Apiman: http://www.apiman.io/

@@ -1,0 +1,8 @@
+
+
+:title-logo-image: resources/images/apiman_logo.png
+= Apiman article
+Red Hat homework assignment
+:author: John-Paul Doran
+:version: v1.0.0, 2018-07-26
+// [Logo,150,150]

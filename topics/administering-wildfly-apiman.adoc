@@ -1,0 +1,125 @@
+<<<
+[[apiman-admin]]
+== ADMINISTERING WILDFLY 10 AND APIMAN
+// == Administering WildFly and Apiman
+To run this demonstration.  You will need to install Java JDK, and Apache Maven. Download and install WildFly 10 application server, and the latest version of Apiman.
+
+[[apiman-admin-prerequisites]]
+=== PREREQUISITES
+To build and run the echo-service quickstart demonstration, install the following prerequisites:
+
+ - A supported version of the Java Developer Kit (JDK). See the Supported link:https://docs.fedoraproject.org/quick-docs/en-US/installing-java.html[Configurations] page for details.
+----
+$ sudo yum install -y java-1.8.0-openjdk-devel
+----
+
+ - Apache Maven 3.3.x or later. See the Maven link:http://maven.apache.org/install.html[Installation] page.
+
+[[apiman-admin-linux]]
+=== INSTALL AND CONFIGURE APIMAN ON WILDFLY 10
+
+Apiman uses WildFly 10 as a runtime environment. This section outlines how to download and unarchive both Apiman and WildFly 10 on Fedora Linux.
+
+. Download the *.zip* archive files:
+- link:http://download.jboss.org/wildfly/10.1.0.Final/wildfly-10.1.0.Final.zip[WildFly 10.1.0.Final]
+- link:http://downloads.jboss.org/apiman/1.4.3.Final/apiman-distro-wildfly10-1.4.3.Final-overlay.zip[Apiman 1.4.3.Final overlay for WildFly 10]
+
+- Alternatively download the *.zip* files using *cURL*:
++
+----
+$ curl http://download.jboss.org/wildfly/10.1.0.Final/wildfly-10.1.0.Final.zip -o wildfly-10.1.0.Final.zip
+$ curl http://downloads.jboss.org/apiman/1.2.9.Final/apiman-distro-wildfly10-1.2.9.Final-overlay.zip -o apiman-distro-wildfly10-1.2.9.Final-overlay.zip
+----
+
+. Unzip each *.zip* archive file into the *wildfly-10.1.0.Final* directory:
++
+----
+$ unzip wildfly-10.1.0.Final.zip
+$ unzip -o apiman-distro-wildfly10-1.2.9.Final-overlay.zip -d wildfly-10.1.0.Final
+----
+
+[[apiman-admin-user]]
+=== CREATE A NEW USER IN WILDFLY 10
+// === Create a new user in Wildfly
+// cd PATH/TO/WORK/DIR/wildfly-VERSION/bin
+* WildFly does not provide a default password. Create a new user to access the console:
+
+----
+$ cd path/to/work/dir/wildfly-<version>/bin
+$ ./add-user.sh
+----
+ - Create your *username*, and *password*.
+ - Select the type of user *a) Management User* or *b) Application User*.
+ - Choose a *group*, or default to blank and click enter.
+
+For more detailed instructions see WildFly Server link:https://docs.jboss.org/author/display/WFLY10/Admin+Guide[Administration Guide].
+
+NOTE: For this demonstration. We use the unername: *Admin* and password: *Admin123* with default values, or select *yes*.
+
+[[apiman-admin-server]]
+=== STARTING THE SERVER
+// === Starting the server
+This section outlines how to start the Wildfly server and standalone version of Apiman. Access the Management UI, and shutdown the server when finished.
+
+. Start the Wildfly server and Apiman:
++
+----
+$ cd wildfly-10.1.0.Final
+$ ./bin/standalone.sh -c standalone-apiman.xml
+----
+
+. Access link:http://localhost:8080/apimanui/[http://localhost:8080/apimanui/] in your browser.
+
+. Stop the Wildfly server and Apiman:
++
+----
+$ ./bin/jboss-cli.sh --connect command=:shutdown
+----
+NOTE: Press *Ctrl+C* on the keyboard to stop the server.
+
+<<<
+[[apiman-admin-quickstart]]
+=== INSTALL ECHO-SERVICE QUICKSTART
+// === Install echo-service quickstart
+
+
+. Download quickstarts into the *apiman* directory:
++
+----
+$ cd /wildfly-10.1.0.Final/apiman/
+$ git clone https://github.com/apiman/apiman-quickstarts.git
+----
+.Clone Quickstarts
+image::01.clone-quickstarts.png[Alt text, 600, 800]
+
+. Echo quickstarts directory structure
+....
+echo-service/
+├── pom.xml
+├── README.md
+├── src
+│   └── main
+│       ├── java
+│       │   └── io
+│       │       └── apiman
+│       │           └── quickstarts
+│       │               └── echo
+│       │                   ├── EchoResponse.java
+│       │                   └── EchoServlet.java
+│       └── webapp
+│           └── WEB-INF
+│               ├── jboss-web.xml
+│               └── web.xml
+└── target
+    ├── apidocs
+....
+
+. Change to the *echo-service* directory, and build the API, with Maven:
++
+----
+$ cd apiman-quickstarts/echo-service
+$ mvn package
+----
+
+.Successful Maven build
+image::02.maven-build.png[Alt text, 600, 800]

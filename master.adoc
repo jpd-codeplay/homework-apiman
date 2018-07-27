@@ -1,0 +1,16 @@
+
+// Attributes
+include::common-content/attributes.adoc[]
+
+// Cover page
+include::topics/title.adoc[]
+
+// Overview and abstract
+include::topics/overview.adoc[]
+
+// Administration
+include::topics/administering-wildfly-apiman.adoc[]
+
+// Apiman use case
+include::topics/apiman-use-case.adoc[]
+// include::topics/rough-work.adoc[]

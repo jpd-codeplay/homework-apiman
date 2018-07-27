@@ -1,0 +1,10 @@
+[[abstract]]
+== Abstract
+
+This article provides a basic example of Apiman, and WildFly application server. Based on echo-service quickstart, demonstrating how to configure an API Provider and Consumer, through the API Manager. And test a defined usage policy, through the API Gateway.
+
+<<<
+[[overview]]
+== OVERVIEW
+
+In an ever-growing would of modern technology, from Cloud-based services to IoT. There has never been a greater need to secure services. API Management is becoming a necessity to secure business assets. The vulnerabilities that can arise from malicious hackers. If they can gain access to APIs. Could have a serious impact on an organization. With a powerful Open Source API Management platform, such as Apiman. It makes it possible, to secure these assets. Through the use of an API Manager, with a rich user interface. The Governance of APIs is straightforward. Through a provider role. Organizations created, have Plans and Policies applied to them. Providing authentication, and IP filtering for security. These Policies are then Governed by the API Gateway at runtime. Apiman has a quota-based management system, for API requests. This provides metric based statistics. Which allows for the Provider, to adjust APIs, to support consumer trends such as that of application developers.
